@@ -1,4 +1,0 @@
-requests
-pandas
-bs4
-html5lib
