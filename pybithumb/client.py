@@ -155,7 +155,7 @@ class Bithumb:
         except Exception:
             return resp
 
-    def buy_limit_order(self, currency, price, unit):
+    def buy_limit_order(self, currency, market, price, unit):
         """
         매수 주문
         :param currency: BTC/ETH/DASH/LTC/ETC/XRP/BCH/XMR/ZEC/QTUM/BTG/EOS/ICX/VEN,TRX/ELF/MITH/MCO/OMG/KNC
@@ -166,12 +166,12 @@ class Bithumb:
         resp = None
         try:
             unit = Bithumb._convert_unit(unit)
-            resp = self.api.place(type="bid", price=price, units=unit, order_currency=currency)
+            resp = self.api.place(type="bid", price=price, units=unit, order_currency=currency, payment_currency=market)
             return "bid", currency, resp['order_id']
         except Exception:
             return resp
 
-    def sell_limit_order(self, currency, price, unit):
+    def sell_limit_order(self, currency, market, price, unit):
         """
         매도 주문
         :param currency: BTC/ETH/DASH/LTC/ETC/XRP/BCH/XMR/ZEC/QTUM/BTG/EOS/ICX/VEN,TRX/ELF/MITH/MCO/OMG/KNC
@@ -182,7 +182,7 @@ class Bithumb:
         resp = None
         try:
             unit = Bithumb._convert_unit(unit)
-            resp = self.api.place(type="ask", price=price, units=unit, order_currency=currency)
+            resp = self.api.place(type="ask", price=price, units=unit, order_currency=currency, payment_currency=market)
             return "ask", currency, resp['order_id']
         except Exception:
             return resp
@@ -230,10 +230,10 @@ class Bithumb:
         except Exception:
             return resp
 
-    def cancel_order(self, currency, type, order_id):
+    def cancel_order(self, currency, market, type, order_id):
         resp = None
         try:
-            resp = self.api.cancel(type=type, order_currency=currency, order_id=order_id)
+            resp = self.api.cancel(type=type, order_currency=currency, order_id=order_id, payment_currency=market)
             return resp['status'] == '0000'
         except Exception:
             return resp
