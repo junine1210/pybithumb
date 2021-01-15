@@ -203,10 +203,10 @@ class Bithumb:
         except Exception:
             return resp
 
-    def get_orders(self, currency):
+    def get_orders(self, currency, market='KRW'):
         resp = None
         try:
-            resp = self.api.orders(order_currency=currency)
+            resp = self.api.orders(order_currency=currency, payment_currency=market)
             if resp['status'] == '5600':
                 return {'data':[]}
             # HACK : 빗썸이 데이터를 리스트에 넣어줌
