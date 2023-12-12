@@ -268,15 +268,15 @@ class Bithumb:
         except Exception:
             return resp
 
-    def get_withdraw(self, currency, address, unit, destination=None):
+    def get_withdraw(self, currency, address, unit, destination=None, exchange_name='', cust_type_cd='01', ko_name='', en_name=''):
         resp = None
         try:
             unit = Bithumb._convert_unit(unit)
 
             if destination == None:
-                resp = self.api.withdraw(currency=currency, address=address, units=unit)
+                resp = self.api.withdraw(currency=currency, address=address, units=unit, exchange_name=exchange_name, cust_type_cd=cust_type_cd, ko_name=ko_name, en_name=en_name)
             else:
-                resp = self.api.withdraw(currency=currency, address=address, units=unit, destination=destination)
+                resp = self.api.withdraw(currency=currency, address=address, units=unit, destination=destination, exchange_name=exchange_name, cust_type_cd=cust_type_cd, ko_name=ko_name, en_name=en_name)
 
             return resp
         except Exception:
